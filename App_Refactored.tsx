@@ -125,7 +125,7 @@ const products = [
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedBrand, setSelectedBrand] = useState('konekt');
+  const [selectedBrand, setSelectedBrand] = useState('zepto');
   const scrollY = useRef(new Animated.Value(0)).current;
 
   // Animated values for header elements
