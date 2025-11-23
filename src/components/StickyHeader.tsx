@@ -14,6 +14,7 @@ interface StickyHeaderProps {
   categories: Category[];
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
+  onProfilePress?: () => void;
 }
 
 /**
@@ -27,6 +28,7 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({
   categories,
   selectedCategory,
   setSelectedCategory,
+  onProfilePress,
 }) => {
   return (
     <Animated.View
@@ -48,6 +50,12 @@ const StickyHeader: React.FC<StickyHeaderProps> = ({
           placeholder='Search for "The Family Man"'
           placeholderTextColor="#999"
         />
+        <TouchableOpacity 
+          style={stickyHeaderStyles.profileIconSticky}
+          onPress={onProfilePress}
+        >
+          <Text style={stickyHeaderStyles.profileIconText}>👤</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Compact category tabs without images */}

@@ -15,6 +15,7 @@ interface HeaderProps {
   categories: Category[];
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
+  onProfilePress?: () => void;
 }
 
 /**
@@ -28,6 +29,7 @@ const Header: React.FC<HeaderProps> = ({
   categories,
   selectedCategory,
   setSelectedCategory,
+  onProfilePress,
 }) => {
   return (
     <View style={headerStyles.headerSection}>
@@ -42,7 +44,10 @@ const Header: React.FC<HeaderProps> = ({
             <Text style={headerStyles.dropdownIcon}>▼</Text>
           </View>
         </View>
-        <TouchableOpacity style={headerStyles.profileIcon}>
+        <TouchableOpacity 
+          style={headerStyles.profileIcon}
+          onPress={onProfilePress}
+        >
           <Text style={headerStyles.profileIconText}>👤</Text>
         </TouchableOpacity>
       </View>

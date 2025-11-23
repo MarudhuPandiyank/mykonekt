@@ -55,4 +55,11 @@ export const stickyHeaderStyles = StyleSheet.create({
   searchIcon: {
     fontSize: isSmallDevice ? 16 : 18,
   },
+  profileIconSticky: {
+    padding: 8,
+    marginLeft: 8,
+  },
+  profileIconText: {
+    fontSize: 20,
+  },
 });

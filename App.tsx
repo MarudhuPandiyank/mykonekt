@@ -7,6 +7,8 @@ import Header from './src/components/Header';
 import CategoryTabs from './src/components/CategoryTabs';
 import PromoBanner from './src/components/PromoBanner';
 import FreshSection from './src/components/FreshSection';
+import FreshScreen from './src/screens/FreshScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 // Constants
 const SCROLL_THRESHOLD = 200;
@@ -126,6 +128,7 @@ const products = [
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedBrand, setSelectedBrand] = useState('konekt');
+  const [showSettings, setShowSettings] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
 
   // Animated values for header elements
@@ -147,6 +150,16 @@ export default function App() {
     extrapolate: 'clamp',
   });
 
+  // If settings screen is active, show it
+  if (showSettings) {
+    return (
+      <View style={commonStyles.container}>
+        <StatusBar style="dark" translucent={false} backgroundColor="#FFFFFF" />
+        <SettingsScreen onBack={() => setShowSettings(false)} />
+      </View>
+    );
+  }
+
   return (
     <View style={commonStyles.container}>
       <StatusBar style="dark" translucent={false} backgroundColor="#E8D5F2" />
@@ -158,6 +171,7 @@ export default function App() {
         categories={categories}
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
+        onProfilePress={() => setShowSettings(true)}
       />
 
       {/* Scrollable Content */}
@@ -184,6 +198,7 @@ export default function App() {
             categories={categories}
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
+            onProfilePress={() => setShowSettings(true)}
           />
 
           {/* Category Tabs with Images */}
@@ -196,25 +211,32 @@ export default function App() {
 
         {/* Main Content */}
         <View style={commonStyles.content}>
-          {/* Promotional Banners and Offers */}
-          <PromoBanner />
+          {selectedCategory === 'Fresh' ? (
+            /* Fresh Screen with dedicated layout */
+            <FreshScreen scrollY={scrollY} />
+          ) : (
+            <>
+              {/* Promotional Banners and Offers */}
+              <PromoBanner />
 
-          {/* Fresh Products Section */}
-          <FreshSection products={products} />
+              {/* Fresh Products Section */}
+              <FreshSection products={products} />
 
-          {/* Extra content placeholder */}
-          <View style={{ paddingHorizontal: 16, paddingBottom: 100 }}>
-            <View
-              style={{
-                backgroundColor: '#F0F8FF',
-                padding: 40,
-                borderRadius: 12,
-                alignItems: 'center',
-              }}
-            >
-              <Text style={{ fontSize: 16, color: '#666' }}>🎉 More offers below</Text>
-            </View>
-          </View>
+              {/* Extra content placeholder */}
+              <View style={{ paddingHorizontal: 16, paddingBottom: 100 }}>
+                <View
+                  style={{
+                    backgroundColor: '#F0F8FF',
+                    padding: 40,
+                    borderRadius: 12,
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ fontSize: 16, color: '#666' }}>🎉 More offers below</Text>
+                </View>
+              </View>
+            </>
+          )}
         </View>
       </Animated.ScrollView>
     </View>
